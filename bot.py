@@ -3,9 +3,10 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
+from riot_api import get_summoner_info
+
 load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-# RIOT_TOKEN = os.getenv("RIOT_API_KEY")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -19,7 +20,7 @@ async def on_ready():
 
 @bot.command(name="소환사")
 async def summoner(ctx, *, summoner_name):
-    print(summoner_name)
     await ctx.send(f"소환사 `{summoner_name}` 정보를 조회 중")
+    result = get_summoner_info(summoner_name) 
 
 bot.run(DISCORD_TOKEN)
