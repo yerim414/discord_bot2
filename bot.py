@@ -3,7 +3,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 
-from riot_api import get_summoner_info
+from riot_api import RiotAPI
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
@@ -21,6 +21,14 @@ async def on_ready():
 @bot.command(name="소환사")
 async def summoner(ctx, *, summoner_name):
     await ctx.send(f"소환사 `{summoner_name}` 정보를 조회 중")
-    result = get_summoner_info(summoner_name) 
+    riot = RiotAPI()
+    puuid = riot.get_summoner_puuid(summoner_name)
+
+    if puuid is None:
+        await ctx.send("❌ 해당 소환사를 찾을 수 없습니다.")
+        return
+
+    info = riot.get_summoner_info_puuid(puuid)
+    rank = riot.get_summoner_rank_puuid(puuid)
 
 bot.run(DISCORD_TOKEN)
