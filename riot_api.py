@@ -47,3 +47,6 @@ class RiotAPI():
         url = f"{self.api_url}/lol/league/v4/entries/by-puuid/{puuid}"
         result = self._get_request(url)
         return result
+    
+    def get_Icon(self, ID: int):
+        return f"https://ddragon.leagueoflegends.com/cdn/14.11.1/img/profileicon/{ID}.png"
