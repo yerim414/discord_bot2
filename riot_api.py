@@ -2,12 +2,13 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="./.env")
+load_dotenv(override=True)
 
 class RiotAPI():
     def __init__(self):
         try:
             self.api_key = os.getenv("RIOT_API_KEY")
+            print(self.api_key)
             self.headers = {"X-Riot-Token": self.api_key}
             self.api_url = "https://kr.api.riotgames.com"
             self.asia_url = "https://asia.api.riotgames.com"
@@ -50,3 +51,12 @@ class RiotAPI():
     
     def get_Icon(self, ID: int):
         return f"https://ddragon.leagueoflegends.com/cdn/14.11.1/img/profileicon/{ID}.png"
+    
+    def get_recent_match_ids(self, puuid, count=3):
+        url = f"{self.asia_url}/lol/match/v5/matches/by-puuid/{puuid}/ids"
+        params = {"count": count}
+        return self._get_request(url, params)
+    
+    def get_match_detail(self, match_id):
+        url = f"{self.asia_url}/lol/match/v5/matches/{match_id}"
+        return self._get_request(url)
