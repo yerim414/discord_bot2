@@ -29,7 +29,7 @@ QUEUE_ID_MAP = {
 async def on_ready():
     print(f"전적 봇 실행 : {bot.user}")
 
-# TODO : 소스 정리 필요.
+# TODO : 소스 정리 필요
 @bot.command(name="소환사")
 async def summoner(ctx, *, summoner_name):
     await ctx.send(f"🔎 소환사 `{summoner_name}` 정보를 조회 중")
