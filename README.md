@@ -28,3 +28,7 @@ echo "RIOT_API_KEY=라이엇_API_키" >> .env
 
 # 봇 실행
 python main.py
+```
+
+## 사용 예시 및 결과
+<img src="example_image.png" width="500">
